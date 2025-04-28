@@ -1,4 +1,4 @@
-#To-Do List Web Application
+## To-Do List Web Application
 
 A modern, responsive To-Do List Web App built with HTML, CSS, and JavaScript.  
 This app helps users organize tasks efficiently with features like task creation, editing, deletion, completion marking, search, filtering, and local storage persistence.
@@ -18,7 +18,9 @@ This app helps users organize tasks efficiently with features like task creation
 
 ##  Demo
 
-![Uploading image.png…]()
+![Screenshot 2025-04-28 122005](https://github.com/user-attachments/assets/606394fc-7302-4c75-bfbb-fa331ada9c98)
+
+![Screenshot 2025-04-28 121929](https://github.com/user-attachments/assets/77a4c97f-7a21-4dc3-aa5e-00e8135b1454)
 
 
 ## Tech Stack
