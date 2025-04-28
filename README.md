@@ -16,10 +16,12 @@ This app helps users organize tasks efficiently with features like task creation
 - Toast notifications for user actions
 
 
-##  Demo
+##  Demo Pic's
 
+- Landing Page
 ![Screenshot 2025-04-28 122005](https://github.com/user-attachments/assets/606394fc-7302-4c75-bfbb-fa331ada9c98)
 
+- Addded Task List
 ![Screenshot 2025-04-28 121929](https://github.com/user-attachments/assets/77a4c97f-7a21-4dc3-aa5e-00e8135b1454)
 
 
@@ -39,3 +41,6 @@ Front End:
 Back End : 
 
 - Local storage - local storage for storing the added task details
+
+## References 
+I used OpenAi tool for reference for the code and bug fix  
