@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+      }
+  
+      body {
+        background: linear-gradient(135deg, #4facfe, #ea51d3);
+        background-size: 600% 600%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        color: #333;
+      }
+  
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+  
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 2rem;
+        flex: 1;
+        animation: fadeIn 1s ease forwards;
+      }
+  
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+  
+      header {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+  
+      h1 {
+        color: #fff;
+        font-size: 2.5rem;
+      }
+  
+      .task-form {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        margin: 50px 0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+  
+      .task-form:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      }
+  
+      .task-form h3 {
+        margin-bottom: 1rem;
+        color: #4facfe;
+      }
+  
+      .task-form input,
+      .task-form textarea,
+      .task-form select {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        transition: border 0.3s ease;
+      }
+  
+      .task-form input:focus,
+      .task-form textarea:focus,
+      .task-form select:focus {
+        border-color: #4facfe;
+        outline: none;
+      }
+  
+      .task-form button {
+        padding: 0.7rem 1.4rem;
+        background: #4facfe;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+  
+      .task-form button:hover {
+        background: #00c6ff;
+        transform: scale(1.05);
+      }
+  
+      .search-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 1rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        margin-bottom: 2rem;
+        justify-content: space-between;
+        align-items: center;
+        animation: fadeIn 1s ease forwards;
+      }
+  
+      .search-filter > * {
+        flex: 1 1 220px;
+      }
+  
+      .search-filter input,
+      .search-filter select {
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        transition: border 0.3s ease;
+      }
+  
+      .search-filter input:focus,
+      .search-filter select:focus {
+        border-color: #4facfe;
+        outline: none;
+      }
+  
+      .task-list {
+        list-style: none;
+        padding: 0;
+      }
+  
+      .task-item {
+        background-color: #fff;
+        padding: 1.4rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        animation: slideUp 0.5s ease forwards;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+  
+      .task-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      }
+  
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+  
+      .task-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+  
+      .task-desc {
+        font-size: 1rem;
+        color: #555;
+        transition: color 0.3s ease;
+      }
+  
+      .task-meta {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        color: #444;
+      }
+  
+      .task-buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+  
+      .task-buttons button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: white;
+        transition: transform 0.2s ease;
+      }
+  
+      .task-buttons button:hover {
+        transform: scale(1.1);
+      }
+  
+      .edit-btn { background-color: #ffc107; color: black; }
+      .delete-btn { background-color: #dc3545; }
+      .complete-btn { background-color: #28a745; }
+  
+      .completed {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+  
+      footer {
+        text-align: center;
+        color: white;
+        font-size: 0.9rem;
+        padding: 1.5rem 0;
+        animation: fadeIn 1.5s ease forwards;
+      }
+  
+      /* --- Toast Styles --- */
+      #toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4facfe;
+        color: white;
+        padding: 0.8rem 1.2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transform: translateY(-30px);
+        pointer-events: none;
+        transition: all 0.4s ease;
+        z-index: 1000;
+      }
+  
+      #toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+  </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <header>
+          <h1>To-Do List Application</h1>
+        </header>
+      
+        <!-- New Task Form -->
+        <div class="task-form">
+          <h3>Add New Task</h3>
+          <input type="text" id="taskTitle" placeholder="Task Title">
+          <textarea id="taskDesc" rows="3" placeholder="Task Description"></textarea>
+          <label for="taskDue">Due Date:</label>
+          <input type="date" id="taskDue">
+          <label for="taskPriority">Priority:</label>
+          <select id="taskPriority">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+          </select>
+          <label for="taskCategory">Category:</label>
+          <input type="text" id="taskCategory" placeholder="E.g., Work, Personal, Study">
+          <button onclick="addTask()">Add Task</button>
+        </div>
+      
+        <!-- Search and Filter Area -->
+        <div class="search-filter">
+          <input type="text" id="searchInput" placeholder="Search tasks..." oninput="renderTasks()">
+          <select id="priorityFilter" onchange="renderTasks()">
+            <option value="">All Priorities</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <select id="categoryFilter" onchange="renderTasks()">
+            <option value="">All Categories</option>
+          </select>
+          <select id="sortDueDate" onchange="renderTasks()">
+            <option value="">Sort by Due Date</option>
+            <option value="asc">Oldest First</option>
+            <option value="desc">Newest First</option>
+          </select>
+        </div>
+      
+        <!-- Task List -->
+        <ul class="task-list" id="taskList"></ul>
+        <div id="toast"></div>
+      
+      </div>
+      
+      <footer>&copy; 2025 To-Do List. All rights reserved.</footer>
+      
+      <script>
+      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      
+      function addTask() {
+        const title = document.getElementById('taskTitle').value.trim();
+        const description = document.getElementById('taskDesc').value.trim();
+        const dueDate = document.getElementById('taskDue').value;
+        const priority = document.getElementById('taskPriority').value;
+        const category = document.getElementById('taskCategory').value.trim();
+      
+        if (!title) {
+          showToast('Task title cannot be empty.');
+          return;
+        }
+      
+        tasks.push({ title, description, dueDate, priority, category, completed: false });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        showToast('Task added successfully!');
+        renderTasks();
+      
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDesc').value = '';
+        document.getElementById('taskDue').value = '';
+        document.getElementById('taskPriority').value = 'Medium';
+        document.getElementById('taskCategory').value = '';
+      }
+      
+      function renderTasks() {
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = '';
+      
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        const priorityFilter = document.getElementById('priorityFilter').value;
+        const categoryFilter = document.getElementById('categoryFilter').value;
+        const sortDueDate = document.getElementById('sortDueDate').value;
+      
+        const filteredTasks = tasks.filter(task => {
+          const matchesSearch = task.title.toLowerCase().includes(searchQuery);
+          const matchesPriority = priorityFilter ? task.priority === priorityFilter : true;
+          const matchesCategory = categoryFilter ? task.category === categoryFilter : true;
+          return matchesSearch && matchesPriority && matchesCategory;
+        });
+      
+        let sortedTasks = [...filteredTasks];
+        if (sortDueDate === 'asc') {
+          sortedTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        } else if (sortDueDate === 'desc') {
+          sortedTasks.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+        }
+      
+        sortedTasks.forEach((task, index) => {
+          const li = document.createElement('li');
+          li.className = 'task-item';
+          li.innerHTML = `
+            <div class="task-title ${task.completed ? 'completed' : ''}" contenteditable="false">${task.title}</div>
+            <div class="task-desc ${task.completed ? 'completed' : ''}" contenteditable="false">${task.description}</div>
+            <div class="task-meta">
+              <span><strong>Due:</strong> ${task.dueDate || 'No due date'}</span>
+              <span><strong>Priority:</strong> ${task.priority}</span>
+              <span><strong>Category:</strong> ${task.category || 'None'}</span>
+            </div>
+            <div class="task-buttons">
+              <button class="complete-btn" onclick="toggleComplete(${index})">${task.completed ? 'Undo' : 'Mark Complete'}</button>
+              <button class="edit-btn" onclick="editTask(${index}, this)">Edit</button>
+              <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+            </div>
+          `;
+          taskList.appendChild(li);
+        });
+      
+        populateCategoryFilter();
+      }
+      
+      function editTask(index, btn) {
+        const taskItem = btn.closest('.task-item');
+        const titleEl = taskItem.querySelector('.task-title');
+        const descEl = taskItem.querySelector('.task-desc');
+      
+        if (btn.textContent === 'Edit') {
+          titleEl.contentEditable = true;
+          descEl.contentEditable = true;
+          titleEl.focus();
+          btn.textContent = 'Save';
+        } else {
+          titleEl.contentEditable = false;
+          descEl.contentEditable = false;
+          tasks[index].title = titleEl.textContent.trim();
+          tasks[index].description = descEl.textContent.trim();
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+          btn.textContent = 'Edit';
+          showToast('Task updated successfully!');
+          renderTasks();
+        }
+      }
+      
+      function deleteTask(index) {
+        tasks.splice(index, 1);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        showToast('Task deleted.');
+        renderTasks();
+      }
+      
+      function toggleComplete(index) {
+        tasks[index].completed = !tasks[index].completed;
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        showToast(tasks[index].completed ? 'Task marked as complete.' : 'Task marked as incomplete.');
+        renderTasks();
+      }
+      
+      function populateCategoryFilter() {
+        const categoryFilter = document.getElementById('categoryFilter');
+        const selectedCategory = categoryFilter.value;
+        const categories = [...new Set(tasks.map(task => task.category).filter(c => c))];
+        categoryFilter.innerHTML = '<option value="">All Categories</option>';
+        categories.forEach(cat => {
+          const option = document.createElement('option');
+          option.value = cat;
+          option.textContent = cat;
+          if (cat === selectedCategory) option.selected = true;
+          categoryFilter.appendChild(option);
+        });
+      }
+      
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+      
+      // Initial rendering
+      renderTasks();
+      </script>
+      
+      
+
+</body>
+</html>
