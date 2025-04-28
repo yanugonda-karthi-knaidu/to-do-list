@@ -31,9 +31,11 @@ This app helps users organize tasks efficiently with features like task creation
 
 ## Project Structure
 Front End: 
-to-do-list.html - body structure for the page 
-internal css - css for styling the landing page 
-javaScript - inline script for functionns in the page or perfome tasks 
+
+- to-do-list.html - body structure for the page 
+- internal css - css for styling the landing page 
+- javaScript - inline script for functionns in the page or perfome tasks 
 
 Back End : 
-Local storage - local storage for storing the added task details
+
+- Local storage - local storage for storing the added task details
