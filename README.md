@@ -23,8 +23,8 @@ This app helps users organize tasks efficiently with features like task creation
 
 ## Tech Stack
 
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Storage**: Local Storage API
+- Frontend : HTML5, CSS3, JavaScript (Vanilla)
+- Storage : Local Storage API
 
 
 ## Project Structure
